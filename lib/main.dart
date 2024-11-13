@@ -1,8 +1,10 @@
-// lib/main.dart
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:mental_health_tracker/screens/menu.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'screens/menu.dart';
+import 'package:mental_health_tracker/screens/login.dart';
 
-void main() {
+void main(){
   runApp(const MyApp());
 }
 
@@ -11,16 +13,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Mental Health Tracker',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple, // Ubah primarySwatch ke warna ungu
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Colors.deepPurple,     // Warna utama ungu
-          secondary: Colors.deepPurple,   // Warna sekunder ungu
+    return Provider(
+      create: (_) {
+        CookieRequest request = CookieRequest();
+        return request;
+      },
+      child: MaterialApp(
+        title: 'Mental Health Tracker',
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.deepPurple,
+          ).copyWith(secondary: Colors.deepPurple[400]),
         ),
+        home: const LoginPage()
       ),
-      home: MyHomePage(),
     );
   }
 }
